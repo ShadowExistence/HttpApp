@@ -19,19 +19,17 @@ CFLAGS=-c -Wall -std=c++11
 LIBS=-L/home/Documents/stealth/szkola/oop/httpApp/curlpp -lcurlpp -lcurl
 
 # Name of executable output
-TARGET=client
-SRCDIR=src
-BUILDDIR=bin
+TARGET=a
+SRCDIR=./src
+BUILDDIR=./bin
 
 OBJS := $(patsubst %.cpp,%.o,$(shell find $(SRCDIR) -name '*.cpp'))
 
 all: makebuildir $(TARGET)
 
 $(TARGET) : $(OBJS)
-	$(CC) $(LDFLAGS) -o $(BUILDDIR)/$@ $(OBJS) $(LIBS)
+	$(CC) -o $(BUILDDIR)/$@ $(OBJS) $(LIBS)
 
-%.o : %.cpp
-	$(CC) $(CFLAGS) $< -o $@
 
 clean :
 	rm -rf $(BUILDDIR)
