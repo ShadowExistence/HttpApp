@@ -1,0 +1,7 @@
+.vscode
+/bin
+*.o
+/Server/node_modules
+curl
+curlpp
+
