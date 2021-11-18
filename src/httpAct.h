@@ -13,12 +13,17 @@ namespace HttpAction{
 			
 
 		public:
-			HttpAct(void);
-			nlohmann::json get(std::string http, std::string argument="/");
-			nlohmann::json post(std::string http);
+			HttpAct(std::string http);
+			nlohmann::json get(std::string argument="/");
+			void post(std::string argument="/");
 		
+		public:
+			void httpSet(std::string http);
+			std::string httpGet(void);
+
 		private:
 			curlpp::Cleanup cleanup;
     	curlpp::Easy request;
+			std::string _http;
 	};
 };

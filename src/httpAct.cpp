@@ -9,19 +9,17 @@
 
 namespace HttpAction{
 
-  HttpAct::HttpAct(void){
+  HttpAct::HttpAct(std::string http){
     cURLpp::initialize(CURL_GLOBAL_ALL);
+    _http = http;
   }
 
-  nlohmann::json HttpAct::get(std::string http, std::string argument){
-
+  nlohmann::json HttpAct::get(std::string argument){
 
     std::ostringstream stream;
-    curlpp::options::WriteStream writeStream(&stream);
+    request.setOpt(curlpp::Options::Url(_http));
+    stream << request;
 
-    request.setOpt(writeStream);
-    request.setOpt(curlpp::Options::Url(http));
-    request.perform();
     cURLpp::terminate();
 
     nlohmann::json js = nlohmann::json::parse(stream.str());
@@ -40,4 +38,25 @@ namespace HttpAction{
     // }
 
   } 
+
+  void HttpAct::post(std::string argument){
+    //later change the argument to json
+
+    request.setOpt(new curlpp::options::Url(_http)); 
+
+    std::list<std::string> header; 
+    header.push_back("Content-Type: application/json");
+
+    request.setOpt(new curlpp::options::HttpHeader(header)); 
+    request.setOpt(new curlpp::options::PostFields(argument));
+    request.setOpt(new curlpp::options::PostFieldSize(argument.size()));
+    
+    request.perform();
+    cURLpp::terminate();
+  }
+
+
+
+  void HttpAct::httpSet(std::string http) {_http = http;}
+  std::string HttpAct::httpGet(void) {return _http;}
 };
