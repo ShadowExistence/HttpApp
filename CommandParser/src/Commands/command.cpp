@@ -11,4 +11,13 @@ namespace Commander{
     return _description;
   }
 
+  void Command::name(std::string name){
+
+    _name = name;
+  }
+
+  std::string Command::name(void){
+    return _name;
+  }
+
 };

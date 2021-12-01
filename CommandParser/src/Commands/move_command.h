@@ -1,15 +1,16 @@
 #pragma once
 
-#include "command.h"
 #include <string>
-#include <vector>
+#include "./command.h"
+
 
 namespace Commander{
-  
-  class Help : public Command {
+
+  class Move : public Command{
 
     public:
-      Help(void);
+      Move(void);
       virtual std::string execute(std::vector<std::string> arguments);
+
   };
 };
